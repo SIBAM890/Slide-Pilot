@@ -10,6 +10,6 @@
         "start": "cd server && npm start"
     },
     "engines": {
-        "node": ">=16"
+        "node": ">=22.12.0"
     }
 }
