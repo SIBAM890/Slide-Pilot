@@ -1,0 +1,15 @@
+{
+    "name": "slidepilot-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "install-server": "cd server && npm install",
+        "install-client": "cd client && npm install",
+        "install": "npm run install-server && npm run install-client",
+        "build": "cd client && npm run build",
+        "start": "cd server && npm start"
+    },
+    "engines": {
+        "node": ">=16"
+    }
+}

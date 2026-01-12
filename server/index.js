@@ -1,13 +1,29 @@
+const express = require("express");
+const http = require("http");
 const { Server } = require("socket.io");
+const path = require("path");
 
-const io = new Server(process.env.PORT || 3000, {
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
     cors: {
         origin: "*", // Allow connections from Vercel/Localhost
         methods: ["GET", "POST"]
     }
 });
 
-console.log("🚀 SlidePilot Signaling Server running...");
+// Serve Static Files from Client
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+// Handle React Routing, return all requests to React app
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`🚀 SlidePilot Server running on port ${PORT}`);
+});
 
 io.on("connection", (socket) => {
     // 1. Join Session
